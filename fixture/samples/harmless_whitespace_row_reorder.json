@@ -1,0 +1,49 @@
+{
+  "invoice_id": "000147",
+  "invoice_date": "2026-10-19",
+  "currency": "USD",
+  "seller": "  Synthetic   Supplier A  ",
+  "buyer": "Synthetic Customer B",
+  "line_items": [
+    {
+      "line_id": "04",
+      "item_id": "0104",
+      "description": "Recycled note cards, blank (pack of 50)",
+      "quantity": "5",
+      "unit_price": "5.15",
+      "line_total": "25.75"
+    },
+    {
+      "line_id": "03",
+      "item_id": "0031",
+      "description": "  Archival document sleeves,\n  clear matte finish,\n  A4 size,\n  with reinforced edges and reusable label inserts (pack of 25).  ",
+      "quantity": "1",
+      "unit_price": "24.50",
+      "line_total": "24.50"
+    },
+    {
+      "line_id": "02",
+      "item_id": "0012",
+      "description": "Desk label holder set",
+      "quantity": "3",
+      "unit_price": "18.75",
+      "line_total": "56.25"
+    },
+    {
+      "line_id": "01",
+      "item_id": "0008",
+      "description": "Cable organizer set",
+      "quantity": "2",
+      "unit_price": "18.75",
+      "line_total": "37.50"
+    }
+  ],
+  "subtotal": "144.00",
+  "discount_rate": "0.10",
+  "discount_amount": "14.40",
+  "taxable_amount": "129.60",
+  "tax_rate": "0.08",
+  "tax_amount": "10.37",
+  "shipping": "7.50",
+  "total": "147.47"
+}

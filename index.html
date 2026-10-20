@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Extraction Checkup — a free invoice exercise | AI Toolcast</title>
+  <meta name="description" content="Try one synthetic invoice extraction. Paste an AI response as JSON and see exact value, format and missing-row findings, privately in your browser.">
+  <link rel="icon" href="./assets/brand/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./assets/fonts.css">
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./app.mjs"></script>
+</head>
+<body>
+  <a class="skip-link" href="#exercise">Skip to the exercise</a>
+  <header class="masthead">
+    <a class="tool-brand" href="https://aitoolcast.com/" aria-label="AI Toolcast home">
+      <img src="./assets/brand/mark.svg" width="40" height="40" alt="">
+      <span><span class="brand-name">AI Tool<em>cast</em><span class="brand-period">.</span></span><small>AI tool news, explained.</small></span>
+    </a>
+    <nav aria-label="AI Toolcast"><a href="https://aitoolcast.com/tools/">Our tools</a><a href="https://aitoolcast.com/about/">About</a></nav>
+  </header>
+  <main id="exercise">
+    <div class="introduction">
+      <h1>AI Extraction Checkup</h1>
+      <p class="standfirst">Try one invoice extraction. See exactly which values, formats and rows need a closer look.</p>
+      <p class="scope">A free exercise by AI Toolcast. One synthetic invoice, a fixed answer and explicit rules. This is not a model benchmark or a checker for your own invoices.</p>
+    </div>
+
+    <div class="preparation">
+      <section class="source-section" aria-labelledby="source-title">
+        <h2 id="source-title">1. Get the practice invoice</h2>
+        <div class="source-content">
+          <a class="invoice-preview" href="./fixture/synthetic-invoice-000147.pdf" target="_blank" rel="noopener" aria-label="View synthetic practice invoice PDF in a new tab">
+            <img src="./fixture/synthetic-invoice-000147.png" width="1224" height="1584" alt="Preview of synthetic invoice 000147, with four line items and a total of USD 147.47.">
+          </a>
+          <div>
+            <p>Use this fictional, four-row invoice as the source in an AI tool that accepts PDFs or images.</p>
+            <div class="source-links"><a id="download-practice" href="./fixture/synthetic-invoice-000147.pdf" download>Download practice PDF</a><a href="./fixture/synthetic-invoice-000147.pdf" target="_blank" rel="noopener">View PDF<span class="sr-only"> in a new tab</span></a></div>
+            <p class="small">No document upload happens here. Any AI service you choose has its own data policy.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="instruction-section" aria-labelledby="instruction-title">
+        <h2 id="instruction-title">2. Ask your AI to extract it</h2>
+        <p>Attach the practice invoice in your chosen AI tool and use this instruction. It defines leading zeroes, dates, decimals and the discount sign before you begin.</p>
+        <button id="copy-prompt" type="button">Copy extraction instruction</button>
+        <details class="instruction-detail"><summary>Read the full instruction</summary>
+          <pre id="extraction-prompt">Extract the supplied synthetic practice invoice into one JSON object.
+Return only JSON: no Markdown fences, commentary or extra fields.
+
+Use these invoice-level fields:
+invoice_id, invoice_date, currency, seller, buyer, line_items, subtotal,
+discount_rate, discount_amount, taxable_amount, tax_rate, tax_amount,
+shipping and total.
+
+line_items must be an array. Each printed row needs these fields:
+line_id, item_id, description, quantity, unit_price and line_total.
+Preserve the printed line ID for each row; do not number rows again based
+on their order. Use each JSON key only once per object.
+
+Use JSON strings for all known scalar values, including IDs and numbers.
+Preserve leading zeroes and meaningful characters in identifiers.
+Use YYYY-MM-DD for the invoice date and the document's currency code.
+Use two decimal places for money. Express percentage rates as decimal
+fractions, such as "0.05" for 5%, without a percent sign.
+Quantities are decimal strings without units.
+
+Join wrapped description lines with spaces while preserving their words.
+Keep each quantity, unit price and line total associated with its printed row.
+
+For this exercise, discount_amount is the positive magnitude to subtract from
+subtotal, even when the invoice displays the adjustment with a minus sign.
+The relationship is subtotal minus discount_amount plus tax_amount plus
+shipping equals total. Follow the document's stated tax/shipping rules.
+Do not fill unreadable printed values by calculation or guesswork.
+
+If a scalar value cannot be read, include that required field with null.
+Do not explain it outside the JSON. A null flags uncertainty to the checker
+and does not count as a successfully extracted value. Keep line_items as an
+array; use null for an unreadable row field rather than inventing its contents.
+
+Use only the practice source PDF/image as evidence. Do not consult its gold
+answer or example response files. This is one educational exercise, not a
+representative model benchmark.
+</pre>
+        </details>
+        <div class="schema-links"><span>Optional JSON schema:</span> <button class="text-button" id="copy-schema" type="button">Copy schema</button><a href="./response-schema.json" download>Download schema</a></div>
+        <p id="preparation-status" class="small preparation-status" role="status" aria-live="polite" aria-atomic="true"></p>
+      </section>
+    </div>
+
+    <section class="check-section" aria-labelledby="check-title">
+      <div class="section-heading"><h2 id="check-title">3. Check your response</h2><p>Comparison runs on your device.</p></div>
+      <div class="workspace">
+        <div class="input-pane">
+          <label class="pane-heading" for="response">Your JSON response</label>
+          <p id="input-help" class="small">Paste one JSON object, without code fences. Up to 65,536 characters.</p>
+          <textarea id="response" rows="20" spellcheck="false" autocapitalize="off" autocomplete="off" aria-describedby="input-help input-source" placeholder='Paste the JSON returned for the practice invoice…'></textarea>
+          <p id="input-source" class="input-source small">Your response is not saved here. Reset clears the exercise.</p>
+          <div class="actions"><button id="compare" type="button">Compare response</button><button class="secondary" id="reset" type="button">Reset exercise</button><span id="character-count" class="small">0 characters</span></div>
+          <details class="sample-picker"><summary>Try a synthetic example</summary>
+            <p class="small">These are deliberately prepared controls, not observed AI outputs. Example checks are excluded from reader-use counts.</p>
+            <label for="sample">Example response</label>
+            <div class="sample-controls"><select id="sample">
+              <option value="identical_correct">All fields correct</option>
+              <option value="harmless_whitespace_row_reorder">Harmless whitespace and row reordering</option>
+              <option value="missing_last_row">Missing final row</option>
+              <option value="changed_id">Changed item ID</option>
+              <option value="swapped_quantities">Swapped quantities</option>
+              <option value="wrong_total">Wrong total</option>
+            </select><button class="secondary" id="load-sample" type="button">Load example</button></div>
+          </details>
+        </div>
+
+        <section class="report-pane" aria-labelledby="report-title">
+          <h3 id="report-title" class="pane-heading" tabindex="-1">Your report</h3>
+          <div id="report" data-state="empty"><p class="empty-message">Paste your response and choose <strong>Compare response</strong>. The report will show exact expected and received values, with format issues and uncertainty kept separate.</p></div>
+          <div id="report-controls" hidden>
+            <div class="actions"><button class="secondary" id="copy-report" type="button">Copy report</button><button class="secondary" id="download-report" type="button">Download .txt</button></div>
+            <details id="plain-report-detail"><summary>Plain-text report</summary><label class="sr-only" for="plain-report">Plain-text report</label><textarea id="plain-report" rows="10" readonly spellcheck="false"></textarea></details>
+          </div>
+        </section>
+      </div>
+      <p id="status" class="action-status" role="status" aria-live="polite" aria-atomic="true"></p>
+      <noscript><p class="notice">Enable JavaScript to compare a response. You can still download the practice invoice, <a href="./EXTRACTION_PROMPT.md">instruction</a>, <a href="./response-schema.json">schema</a> and <a href="./fixture/answer.json">checked answer</a>.</p></noscript>
+    </section>
+
+    <div class="explanation">
+      <section aria-labelledby="rules-title"><h2 id="rules-title">What the check means</h2>
+        <p>The checked answer contains 37 scalar fields across this invoice and its four rows. A match means those fields meet this exercise’s rules; it does not predict performance on another document.</p>
+        <details><summary>Comparison rules</summary><ul>
+          <li>Rows align by their unique printed <code>line_id</code>, regardless of order. Missing and duplicate IDs are reported without guessing.</li>
+          <li>IDs and currency preserve case, punctuation and leading zeroes. Descriptions allow whitespace differences, while preserving the words and case.</li>
+          <li>Known values must be strings. Money uses two decimal places, dates use YYYY-MM-DD and rates use decimal fractions. Decimals are compared exactly.</li>
+          <li><code>discount_amount</code> is the positive amount to subtract. The PDF’s printed minus sign is a representation convention, not evidence of a general AI error.</li>
+          <li>Missing, blank and <code>null</code> values do not pass. Format and uncertainty findings remain separate from wrong-value findings. Unexpected fields are also reported.</li>
+        </ul><p>See the <a href="./README.md">full comparison contract</a> and <a href="./response-schema.json">response schema</a>.</p></details>
+        <details><summary>Inspect the checked answer</summary><p>Finish your own extraction before opening the answer if you want a blind exercise. AI Toolcast created and checked this synthetic fixture.</p><p><a href="./fixture/answer.json">View checked answer JSON</a> · <a href="./fixture/answer.json" download>Download answer</a></p></details>
+      </section>
+      <section aria-labelledby="about-title"><h2 id="about-title">A small, open exercise</h2>
+        <p>Built by AI Toolcast. For your own datasets or broader evaluation work, explore <a href="https://github.com/datalab-to/omni_extract_bench">Omni Extract Bench</a> or <a href="https://www.rendonarango.com/eval-lens">EvalLens</a>. Their comparison policies and scope differ.</p>
+        <details><summary>Privacy and usage measurement</summary><p>Pasted JSON is compared in this browser. This page does not send it to AI Toolcast or an AI provider, and does not save a response history. Copying a report puts its contents on your device’s clipboard; downloading creates a text file.</p><p>The hosted tool may send limited usage events such as a comparison being completed or a report download being started. These events never include pasted JSON, report text or field values. Built-in examples and <code>?qa=1</code> checks are excluded from reader-use counts. See <a href="https://aitoolcast.com/privacy/">AI Toolcast’s privacy notice</a> for hosting and site analytics.</p></details>
+        <details><summary>Source, support and changelog</summary><p>The original source and synthetic fixture are available under the <a href="./LICENSE">MIT license</a> on <a href="https://github.com/AIToolcast/extraction-checkup">GitHub</a>. See <a href="./README.md">source notes and local run instructions</a>. Support is limited to reproducible issues with this fixed exercise; there is no promise of general invoice support or ongoing feature development.</p><p>Release 0.1.0, comparison rules 1.0.0: one synthetic invoice, explicit comparison rules, pasted JSON and a plain-text report.</p></details>
+      </section>
+    </div>
+  </main>
+  <footer><span>© 2026 AI Toolcast</span><a href="https://aitoolcast.com/tools/">More free browser tools</a><a href="https://aitoolcast.com/privacy/">Privacy &amp; site data</a></footer>
+</body>
+</html>

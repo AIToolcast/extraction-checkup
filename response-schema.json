@@ -1,0 +1,177 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AI Extraction Checkup response shape — synthetic-invoice-000147",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "invoice_id",
+    "invoice_date",
+    "currency",
+    "seller",
+    "buyer",
+    "line_items",
+    "subtotal",
+    "discount_rate",
+    "discount_amount",
+    "taxable_amount",
+    "tax_rate",
+    "tax_amount",
+    "shipping",
+    "total"
+  ],
+  "properties": {
+    "invoice_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "A string when known; null if unreadable. See the versioned comparison contract."
+    },
+    "invoice_date": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "A real calendar date in YYYY-MM-DD; null if unreadable."
+    },
+    "currency": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "A string when known; null if unreadable. See the versioned comparison contract."
+    },
+    "seller": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "A string when known; null if unreadable. See the versioned comparison contract."
+    },
+    "buyer": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "A string when known; null if unreadable. See the versioned comparison contract."
+    },
+    "subtotal": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "A string when known; null if unreadable. See the versioned comparison contract."
+    },
+    "discount_rate": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Unsigned decimal fraction, such as 0.05 for 5%, expressed as a JSON string; null if unreadable."
+    },
+    "discount_amount": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Positive magnitude to subtract from subtotal, despite the negative adjustment printed on the invoice. Use two decimal places; null if unreadable."
+    },
+    "taxable_amount": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "A string when known; null if unreadable. See the versioned comparison contract."
+    },
+    "tax_rate": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Unsigned decimal fraction, such as 0.05 for 5%, expressed as a JSON string; null if unreadable."
+    },
+    "tax_amount": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "A string when known; null if unreadable. See the versioned comparison contract."
+    },
+    "shipping": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "A string when known; null if unreadable. See the versioned comparison contract."
+    },
+    "total": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "A string when known; null if unreadable. See the versioned comparison contract."
+    },
+    "line_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "line_id",
+          "item_id",
+          "description",
+          "quantity",
+          "unit_price",
+          "line_total"
+        ],
+        "properties": {
+          "line_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Preserve the printed line ID and leading zeroes. A missing/null or duplicated ID cannot be aligned by guessing."
+          },
+          "item_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "A string when known; null if unreadable. See the versioned comparison contract."
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "A string when known; null if unreadable. See the versioned comparison contract."
+          },
+          "quantity": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "A string when known; null if unreadable. See the versioned comparison contract."
+          },
+          "unit_price": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "A string when known; null if unreadable. See the versioned comparison contract."
+          },
+          "line_total": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "A string when known; null if unreadable. See the versioned comparison contract."
+          }
+        }
+      },
+      "maxItems": 20,
+      "description": "Rows are matched by unique printed line_id, not by array position. Null row fields disclose uncertainty. The fixed answer has four rows."
+    }
+  },
+  "description": "Fixed exercise response shape. Null discloses uncertainty and does not pass a field check. Value, decimal/date format and row-identity checks are performed by the comparator."
+}

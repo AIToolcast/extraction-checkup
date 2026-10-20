@@ -1,0 +1,9 @@
+/* Self-hosted fonts from Google Fonts; sources and SIL licenses: assets/fonts/. */
+@font-face{font-family:'AI Toolcast Display';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/aitoolcast-display-600.woff2') format('woff2')}
+@font-face{font-family:'AI Toolcast Display';font-style:normal;font-weight:900;font-display:swap;src:url('fonts/aitoolcast-display-900.woff2') format('woff2')}
+@font-face{font-family:'AI Toolcast Display';font-style:italic;font-weight:600;font-display:swap;src:url('fonts/aitoolcast-display-600-italic.woff2') format('woff2')}
+@font-face{font-family:'AI Toolcast Sans';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/aitoolcast-sans-400.woff2') format('woff2')}
+@font-face{font-family:'AI Toolcast Sans';font-style:normal;font-weight:500;font-display:swap;src:url('fonts/aitoolcast-sans-500.woff2') format('woff2')}
+@font-face{font-family:'AI Toolcast Sans';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/aitoolcast-sans-600.woff2') format('woff2')}
+@font-face{font-family:'AI Toolcast Mono';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/aitoolcast-mono-400.woff2') format('woff2')}
+@font-face{font-family:'AI Toolcast Mono';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/aitoolcast-mono-600.woff2') format('woff2')}

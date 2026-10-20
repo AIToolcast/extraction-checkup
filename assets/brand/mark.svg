@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 100 100" role="img" aria-label="AI Toolcast">
+  <title>AI Toolcast TC monogram</title>
+  <rect width="100" height="100" rx="18" fill="#a33212"/>
+  <g fill="#fff">
+    <path d="M14 24H70V36H40V76H28V36H14Z"/>
+    <path d="M90 24H70C54 24 46 34 46 50S54 76 70 76H90V64H70C62 64 58 59 58 50S62 36 70 36H90Z"/>
+  </g>
+</svg>

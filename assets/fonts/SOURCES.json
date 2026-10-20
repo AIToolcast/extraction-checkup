@@ -1,0 +1,91 @@
+{
+  "upstream_provenance": {
+    "source": "Official Google Fonts repository",
+    "retrieved": "2026-10-19",
+    "processing": "Static font instances, Latin/Latin Extended and editorial punctuation subset; WOFF2 compression. Original licenses included.",
+    "fonts": [
+      {
+        "file": "fraunces-900.woff2",
+        "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/fraunces/Fraunces%5BSOFT%2CWONK%2Copsz%2Cwght%5D.ttf",
+        "axes": {
+          "wght": 900,
+          "opsz": 72,
+          "SOFT": 0,
+          "WONK": 1
+        }
+      },
+      {
+        "file": "fraunces-600-italic.woff2",
+        "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/fraunces/Fraunces-Italic%5BSOFT%2CWONK%2Copsz%2Cwght%5D.ttf",
+        "axes": {
+          "wght": 600,
+          "opsz": 72,
+          "SOFT": 0,
+          "WONK": 1
+        }
+      },
+      {
+        "file": "ibm-plex-sans-400.woff2",
+        "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexsans/IBMPlexSans%5Bwdth%2Cwght%5D.ttf",
+        "axes": {
+          "wght": 400,
+          "wdth": 100
+        }
+      },
+      {
+        "file": "ibm-plex-sans-500.woff2",
+        "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexsans/IBMPlexSans%5Bwdth%2Cwght%5D.ttf",
+        "axes": {
+          "wght": 500,
+          "wdth": 100
+        }
+      },
+      {
+        "file": "ibm-plex-sans-600.woff2",
+        "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexsans/IBMPlexSans%5Bwdth%2Cwght%5D.ttf",
+        "axes": {
+          "wght": 600,
+          "wdth": 100
+        }
+      },
+      {
+        "file": "ibm-plex-mono-400.woff2",
+        "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexmono/IBMPlexMono-Regular.ttf",
+        "axes": {}
+      },
+      {
+        "file": "ibm-plex-mono-600.woff2",
+        "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexmono/IBMPlexMono-SemiBold.ttf",
+        "axes": {}
+      },
+      {
+        "file": "fraunces-600.woff2",
+        "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/fraunces/Fraunces%5BSOFT%2CWONK%2Copsz%2Cwght%5D.ttf",
+        "axes": {
+          "wght": 600,
+          "opsz": 72,
+          "SOFT": 0,
+          "WONK": 1
+        }
+      }
+    ]
+  },
+  "modified_distributions": {
+    "families": [
+      "AI Toolcast Sans",
+      "AI Toolcast Mono",
+      "AI Toolcast Display"
+    ],
+    "changes": "Local subset/static-instance derivatives renamed in family, full, unique and PostScript names; original copyright, Reserved Font Name and OFL license notices retained.",
+    "files": [
+      "aitoolcast-display-600-italic.woff2",
+      "aitoolcast-display-600.woff2",
+      "aitoolcast-display-900.woff2",
+      "aitoolcast-mono-400.woff2",
+      "aitoolcast-mono-600.woff2",
+      "aitoolcast-sans-400.woff2",
+      "aitoolcast-sans-500.woff2",
+      "aitoolcast-sans-600.woff2"
+    ]
+  }
+}
