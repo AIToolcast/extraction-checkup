@@ -5,6 +5,14 @@ the included PDF and extraction instruction to an AI tool of your choice,
 paste its JSON response, and inspect exact differences against a checked
 answer. Copy or download a readable plain-text report.
 
+For developers and automation builders learning invoice-to-JSON extraction.
+Practise checking whether a response preserved each printed row, identifier
+and amount, with formatting and unreadable values explained separately.
+You need an AI tool that accepts the supplied PDF or image; Checkup does not
+run a model or require an API key or signup of its own.
+
+AI Toolcast owns this tool and used AI assistance in its development and review; the checker makes no model calls, and you choose a separate AI service for extraction.
+
 [Use the hosted tool](https://aitoolcast.com/tools/extraction-checkup/?utm_source=github&utm_medium=referral&utm_campaign=free-tool-launch)
 · [Source repository](https://github.com/AIToolcast/extraction-checkup)
 · [AI Toolcast](https://aitoolcast.com/)
@@ -40,7 +48,7 @@ HTTP; opening `index.html` directly as a file will not reliably load modules
 or example files. With Python 3, from this directory:
 
 ```sh
-python -c "import http.server; http.server.SimpleHTTPRequestHandler.extensions_map['.mjs']='text/javascript'; http.server.test(bind='127.0.0.1',port=8788)"
+python -c "import http.server; http.server.SimpleHTTPRequestHandler.extensions_map['.mjs']='text/javascript'; http.server.test(HandlerClass=http.server.SimpleHTTPRequestHandler,bind='127.0.0.1',port=8788)"
 ```
 
 Open <http://localhost:8788/?qa=1>. The explicit MIME mapping also covers
@@ -144,6 +152,14 @@ An export event means a download was **initiated**, not that the operating
 system confirmed a saved file. These are tool actions, not measured demand
 or unique people.
 
+Hosted referral measurement uses a fixed source category, including
+NoUploadTools and Supatools when the browser supplies their referrer or an
+allowlisted source tag. Raw referring URLs, search text and arbitrary campaign
+values are not sent. These directory labels apply prospectively after the
+site's attribution update; older direct/other counts are not reclassified.
+Missing referrers, redirects, a new tab or privacy opt-outs can hide a referral.
+This is optional event measurement, not proof of an individual visitor or sale.
+
 Built-in samples are marked separately and excluded from reader-use counts,
 including edited samples until the exercise is reset. `?qa=1` disables tool
 event collection for operator checks. `?tracking_test=1` is reserved for
@@ -151,6 +167,22 @@ collection verification and marks those events as QA. The interface remains
 usable if the optional tracking module or service is unavailable. The
 [site privacy notice](https://aitoolcast.com/privacy/) covers hosting and
 site analytics separately.
+
+## Optional collector source
+
+`usage.mjs` is disabled on local/preview origins and with `?qa=1`; the
+exercise works without event collection. The included Pages Function and
+`scripts/usage-schema.sql` show the optional hosted collector contract. The
+schema is for a fresh database: `CREATE TABLE IF NOT EXISTS` does not update
+an existing table’s constraints. This export provides no production database
+migration, deployment credentials, account binding or deployment command.
+Use a separately reviewed migration for an existing installation.
+
+Run the client/API/fresh-schema checks with:
+
+```sh
+node --test scripts/check_usage.mjs
+```
 
 ## Provenance, license and support
 

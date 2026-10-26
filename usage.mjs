@@ -1,6 +1,6 @@
 const ORIGIN = 'https://aitoolcast.com';
 const EVENTS = new Set(['arrival', 'start', 'complete', 'copy', 'export', 'practice_download']);
-const SOURCES = new Set(['x', 'github', 'google', 'bing']);
+const SOURCES = new Set(['x', 'github', 'google', 'bing', 'nouploadtools', 'supatools']);
 const CAMPAIGNS = new Set(['free-tool-launch', 'newsroom']);
 
 function sourceFor(url, referrer) {
@@ -14,6 +14,10 @@ function sourceFor(url, referrer) {
     if (['github.com', 'www.github.com'].includes(from.hostname)) return 'github';
     if (['google.com', 'www.google.com'].includes(from.hostname)) return 'google';
     if (['bing.com', 'www.bing.com'].includes(from.hostname)) return 'bing';
+    if (['https:', 'http:'].includes(from.protocol)) {
+      if (['nouploadtools.com', 'www.nouploadtools.com'].includes(from.hostname)) return 'nouploadtools';
+      if (['supatools.dev', 'www.supatools.dev'].includes(from.hostname)) return 'supatools';
+    }
   } catch { /* Only a fixed category is sent, even for a malformed referrer. */ }
   return 'other';
 }

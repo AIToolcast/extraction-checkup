@@ -4,6 +4,7 @@ import { compareInvoice, reportText, INPUT_LIMIT } from './compare.mjs';
 const usage = import('./usage.mjs').then(module => module.createUsageTracker({ tool: 'extraction-checkup' })).catch(() => null);
 const track = (name, sample = false) => { usage.then(tracker => tracker?.event(name, { sample })).catch(() => {}); };
 const byId = id => document.getElementById(id);
+if (new URLSearchParams(location.search).get('qa') === '1') byId('qa-notice')?.removeAttribute('hidden');
 const input = byId('response');
 const reportArea = byId('report');
 const controls = byId('report-controls');
@@ -123,7 +124,17 @@ byId('reset').addEventListener('click', () => {
   input.focus();
 });
 
+function confirmSampleReplace() {
+  const dialog = byId('replace-response-dialog');
+  dialog.returnValue = '';
+  return new Promise(resolve => {
+    dialog.addEventListener('close', () => resolve(dialog.returnValue === 'replace'), { once: true });
+    dialog.showModal();
+  });
+}
+
 byId('load-sample').addEventListener('click', async () => {
+  if (input.value.trim() && !await confirmSampleReplace()) return;
   const request = ++sampleRequest;
   const button = byId('load-sample');
   const selected = byId('sample');

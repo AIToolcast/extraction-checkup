@@ -1,11 +1,12 @@
 const ORIGIN = 'https://aitoolcast.com';
 const EVENTS = ['arrival', 'start', 'complete', 'copy', 'export', 'practice_download'];
-const SOURCES = ['direct', 'x', 'github', 'google', 'bing', 'other'];
+const SOURCES = ['direct', 'x', 'github', 'google', 'bing', 'other', 'nouploadtools', 'supatools'];
 const CAMPAIGNS = ['none', 'free-tool-launch', 'newsroom'];
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
 const HEADERS = {
   'Cache-Control': 'no-store',
   'X-Content-Type-Options': 'nosniff',
+  'Strict-Transport-Security': 'max-age=31536000',
   'Content-Security-Policy': "default-src 'none'; frame-ancestors 'none'",
   'X-Frame-Options': 'DENY'
 };

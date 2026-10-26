@@ -1,6 +1,6 @@
 """Focused Chromium checks for the fixed browser exercise.
 
-Run: python products/extraction-checkup/tests/browser_ui.py
+Run: python tests/browser_ui.py
 Uses the development machine's existing Playwright installation; the tool
 itself has no runtime package dependencies. Tracking is stubbed to inspect
 the UI event contract; this does not verify a deployed collection service.
@@ -102,10 +102,28 @@ def main():
             assert page.locator("#report dt").all_text_contents() == ["Expected", "Received"] * 3
 
             page.locator(".sample-picker summary").click()
+            # Canceling an overwrite preserves the learner response and report.
+            snapshot = {
+                "input": page.locator("#response").input_value(),
+                "report": page.locator("#report").inner_html(),
+                "output": page.locator("#plain-report").input_value(),
+                "source": page.locator("#input-source").inner_text(),
+                "mode": page.locator("#input-source").get_attribute("data-sample"),
+            }
+            page.locator("#load-sample").click()
+            expect(page.locator("#replace-response-dialog")).to_be_visible()
+            expect(page.get_by_role("button", name="Cancel", exact=True)).to_be_focused()
+            page.get_by_role("button", name="Cancel", exact=True).click()
+            assert page.locator("#response").input_value() == snapshot["input"]
+            assert page.locator("#report").inner_html() == snapshot["report"]
+            assert page.locator("#plain-report").input_value() == snapshot["output"]
+            assert page.locator("#input-source").inner_text() == snapshot["source"]
+            assert page.locator("#input-source").get_attribute("data-sample") == snapshot["mode"]
             samples = {"identical_correct": "match", "harmless_whitespace_row_reorder": "match", "missing_last_row": "differences", "changed_id": "differences", "swapped_quantities": "differences", "wrong_total": "differences"}
             for sample, state in samples.items():
                 page.locator("#sample").select_option(sample)
                 page.locator("#load-sample").click()
+                page.get_by_role("button", name="Replace with example", exact=True).click()
                 expect(page.locator("#input-source")).to_have_attribute("data-sample", "true")
                 expect(page.locator("#report")).to_have_attribute("data-state", "empty")
                 page.locator("#compare").click()
@@ -126,6 +144,12 @@ def main():
             expect(page.locator("#response")).to_have_value("")
             expect(page.locator("#report-controls")).to_be_hidden()
             expect(page.locator("#input-source")).to_have_attribute("data-sample", "false")
+            # Empty input still loads directly, without a confirmation dialog.
+            page.locator("#load-sample").click()
+            expect(page.locator("#replace-response-dialog")).to_be_hidden()
+            expect(page.locator("#input-source")).to_have_attribute("data-sample", "true")
+            expect(page.locator("#report")).to_have_attribute("data-state", "empty")
+            page.locator("#reset").click()
             page.locator("#response").fill("x" * 65537)
             page.locator("#compare").click()
             expect(page.locator("#report")).to_have_attribute("data-state", "invalid")

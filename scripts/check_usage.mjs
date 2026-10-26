@@ -69,10 +69,12 @@ test('endpoint stores only exact allowlisted fields and a server-derived day; no
   assert.deepEqual(db.rows, [{ day: today(), ...body }]);
   assert.deepEqual(Object.keys(db.rows[0]), keys);
   assert.equal(result.headers.get('cache-control'), 'no-store');
+  assert.equal(result.headers.get('strict-transport-security'), 'max-age=31536000');
   assert.equal(result.headers.get('access-control-allow-origin'), null);
   const get = await send(db, body, { method: 'GET' });
   assert.equal(get.status, 405);
   assert.equal(get.headers.get('allow'), 'POST');
+  assert.equal(get.headers.get('strict-transport-security'), 'max-age=31536000');
   assert.equal(await get.text(), '');
 });
 
@@ -97,6 +99,22 @@ test('requires exact production Origin and target, JSON, and POST', async () => 
   assert.equal((await send(db, payload(), { headers: { 'Content-Type': 'text/plain' } })).status, 415);
   assert.equal((await send(db, payload(), { method: 'OPTIONS' })).status, 405);
   assert.deepEqual(db.statements, []);
+});
+
+test('each fixed directory source keeps QA separate and reaches completed checks without extra fields', async () => {
+  const db = new MockD1();
+  for (const source of ['nouploadtools', 'supatools']) {
+    for (const audience of ['reader', 'qa']) {
+      const body = payload({ source, audience });
+      for (const event of ['arrival', 'start', 'complete']) {
+        assert.equal((await send(db, { ...body, event })).status, 204);
+      }
+    }
+    assert.equal((await send(db, payload({ source: `${source}.com` }))).status, 400);
+  }
+  assert.equal(db.rows.length, 12);
+  assert.equal(db.rows.filter(row => row.audience === 'reader' && row.event === 'complete').length, 2);
+  assert.ok(db.rows.every(row => Object.keys(row).join() === keys.join()));
 });
 
 test('body byte limit checks declared and actual streaming lengths, including UTF-8', async () => {
@@ -264,12 +282,30 @@ test('live tracking_test=1 marks QA and all attribution remains conservative fix
     ['', 'https://github.com.evil.example/private', 'other', 'none', 'reader'],
     ['', '', 'direct', 'none', 'reader']
   ];
+  cases.push(
+    ['?tracking_test=1&utm_source=nouploadtools', '', 'nouploadtools', 'none', 'qa'],
+    ['?tracking_test=1&utm_source=supatools', '', 'supatools', 'none', 'qa'],
+    ['', 'https://nouploadtools.com/tools/example?private=DO-NOT-SEND', 'nouploadtools', 'none', 'reader'],
+    ['', 'https://www.nouploadtools.com/', 'nouploadtools', 'none', 'reader'],
+    ['', 'https://supatools.dev/tools/example?private=DO-NOT-SEND', 'supatools', 'none', 'reader'],
+    ['', 'https://www.supatools.dev/', 'supatools', 'none', 'reader'],
+    ['', 'https://supatools.dev.evil.example/', 'other', 'none', 'reader'],
+    ['', 'https://evil.example/?ref=https://nouploadtools.com', 'other', 'none', 'reader'],
+    ['', 'https://fakenouploadtools.com/', 'other', 'none', 'reader'],
+    ['', 'ftp://supatools.dev/', 'other', 'none', 'reader'],
+    ['', 'malformed private referrer', 'other', 'none', 'reader'],
+    ['?utm_source=unknown-private', 'https://supatools.dev/', 'other', 'none', 'reader']
+  );
   for (const [query, referrer, source, campaign, audience] of cases) {
     const tab = browser({ location: { href: `${ORIGIN}/tools/extraction-checkup/${query}` }, document: { referrer } });
     const tracker = createUsageTracker({ browser: tab }); await flush(tracker);
     assert.deepEqual({ source: tab.calls[0].body.source, campaign: tab.calls[0].body.campaign, audience: tab.calls[0].body.audience }, { source, campaign, audience });
+    assert.equal(JSON.stringify(tab.calls).includes('DO-NOT-SEND'), false);
   }
 });
+
+// The private site's one-off existing-database migration is not part of this
+// clean public export. Fresh schema and endpoint constraints are checked above.
 
 test('client uses new IDs for new tabs and after UTC rollover without cross-session return counts', async () => {
   let date = '2026-10-20T23:59:00Z';

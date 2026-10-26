@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI Extraction Checkup — a free invoice exercise | AI Toolcast</title>
-  <meta name="description" content="Try one synthetic invoice extraction. Paste an AI response as JSON and see exact value, format and missing-row findings, privately in your browser.">
+  <title>Invoice-to-JSON practice checker — AI Extraction Checkup | AI Toolcast</title>
+  <meta name="description" content="Practise checking an AI invoice extraction: download one synthetic PDF, use the supplied prompt, then compare the JSON for changed IDs, amounts and missing rows. Free, no signup.">
   <link rel="icon" href="./assets/brand/mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./assets/fonts.css">
   <link rel="stylesheet" href="./style.css">
@@ -22,8 +22,14 @@
   <main id="exercise">
     <div class="introduction">
       <h1>AI Extraction Checkup</h1>
-      <p class="standfirst">Try one invoice extraction. See exactly which values, formats and rows need a closer look.</p>
-      <p class="scope">A free exercise by AI Toolcast. One synthetic invoice, a fixed answer and explicit rules. This is not a model benchmark or a checker for your own invoices.</p>
+      <p id="qa-notice" class="notice" hidden><strong>QA mode.</strong> Checkup’s optional tool-use counts are disabled. The exercise still works; hosting requests and Cloudflare Web Analytics are not disabled by this mode.</p>
+      <p class="standfirst">Practise invoice-to-JSON extraction. Check IDs, amounts and every printed row.</p>
+      <p class="scope">For developers and automation builders learning to check an AI response. Free, no signup. Bring an AI tool that accepts PDFs or images; we do not run a model for you. One synthetic invoice with fixed rules, not a model benchmark or a checker for your own invoices.</p>
+      <p class="scope"><a href="https://aitoolcast.com/articles/invoice-json-schema-valid-but-wrong-checkup-guide/">Read the worked guide with synthetic examples</a> for a step-by-step explanation of schema checks and source comparison.</p>
+      <details class="first-look"><summary>See an example report before you start</summary>
+        <p class="small">This prepared example changes one identifier. The report shows the expected and received values. It is a demonstration, not an observed AI failure; example runs are excluded from reader-use counts.</p>
+        <img src="./assets/demo-report.jpg" width="375" height="211" alt="Prepared changed-identifier example: the report shows 36 of 37 fields match and identifies the value difference." loading="lazy">
+      </details>
     </div>
 
     <div class="preparation">
@@ -35,7 +41,7 @@
           </a>
           <div>
             <p>Use this fictional, four-row invoice as the source in an AI tool that accepts PDFs or images.</p>
-            <div class="source-links"><a id="download-practice" href="./fixture/synthetic-invoice-000147.pdf" download>Download practice PDF</a><a href="./fixture/synthetic-invoice-000147.pdf" target="_blank" rel="noopener">View PDF<span class="sr-only"> in a new tab</span></a></div>
+            <div class="source-links"><a id="download-practice" href="./fixture/synthetic-invoice-000147.pdf" download>Download practice PDF</a><a href="./fixture/synthetic-invoice-000147.png" download>Download practice image (PNG)</a><a href="./fixture/synthetic-invoice-000147.pdf" target="_blank" rel="noopener">View PDF<span class="sr-only"> in a new tab</span></a></div>
             <p class="small">No document upload happens here. Any AI service you choose has its own data policy.</p>
           </div>
         </div>
@@ -44,7 +50,7 @@
       <section class="instruction-section" aria-labelledby="instruction-title">
         <h2 id="instruction-title">2. Ask your AI to extract it</h2>
         <p>Attach the practice invoice in your chosen AI tool and use this instruction. It defines leading zeroes, dates, decimals and the discount sign before you begin.</p>
-        <button id="copy-prompt" type="button">Copy extraction instruction</button>
+        <div class="source-links"><button id="copy-prompt" type="button">Copy extraction instruction</button><a href="./EXTRACTION_PROMPT.md" download>Download instruction</a></div>
         <details class="instruction-detail"><summary>Read the full instruction</summary>
           <pre id="extraction-prompt">Extract the supplied synthetic practice invoice into one JSON object.
 Return only JSON: no Markdown fences, commentary or extra fields.
@@ -126,6 +132,14 @@ representative model benchmark.
       <noscript><p class="notice">Enable JavaScript to compare a response. You can still download the practice invoice, <a href="./EXTRACTION_PROMPT.md">instruction</a>, <a href="./response-schema.json">schema</a> and <a href="./fixture/answer.json">checked answer</a>.</p></noscript>
     </section>
 
+    <dialog class="replace-dialog" id="replace-response-dialog" aria-labelledby="replace-response-title" aria-describedby="replace-response-description">
+      <form method="dialog">
+        <h2 id="replace-response-title">Replace your current response?</h2>
+        <p id="replace-response-description">Loading a synthetic example will replace your response and report. Your response is not saved here. Cancel keeps your current work.</p>
+        <div class="actions"><button class="secondary" value="cancel" autofocus>Cancel</button><button value="replace">Replace with example</button></div>
+      </form>
+    </dialog>
+
     <div class="explanation">
       <section aria-labelledby="rules-title"><h2 id="rules-title">What the check means</h2>
         <p>The checked answer contains 37 scalar fields across this invoice and its four rows. A match means those fields meet this exercise’s rules; it does not predict performance on another document.</p>
@@ -136,12 +150,20 @@ representative model benchmark.
           <li><code>discount_amount</code> is the positive amount to subtract. The PDF’s printed minus sign is a representation convention, not evidence of a general AI error.</li>
           <li>Missing, blank and <code>null</code> values do not pass. Format and uncertainty findings remain separate from wrong-value findings. Unexpected fields are also reported.</li>
         </ul><p>See the <a href="./README.md">full comparison contract</a> and <a href="./response-schema.json">response schema</a>.</p></details>
+        <details class="input-error-help"><summary>When the JSON could not be compared</summary>
+          <p>An input error means Checkup has not compared the invoice values. It is not a zero-out-of-37 result, an extraction accuracy score or proof that an amount is wrong. Start by saving the original response in a local text file. Work on a separate copy so you can distinguish formatting cleanup from what your AI actually returned.</p>
+          <p>Checkup expects one JSON object for its fictional practice invoice. Ordinary whitespace around that object is fine. Markdown fences and explanatory sentences are not part of the object. Do not upload a response or customer document to an online JSON cleaner; use only the supplied synthetic invoice here. The four cases below were prepared synthetically, not taken from an AI session.</p>
+          <table><caption class="sr-only">Four prepared synthetic JSON input cases and safe next steps</caption><thead><tr><th scope="col">What you received</th><th scope="col">What Checkup reports</th><th scope="col">Safe next step</th></tr></thead><tbody><tr><td>Opening and closing Markdown fence lines around one object</td><td><code>invalid_json</code>; no values compared</td><td>Copy the object without those exterior fence lines. Keep every character inside it unchanged.</td></tr><tr><td>An introduction or conclusion outside one clearly bounded object</td><td><code>invalid_json</code>; no values compared</td><td>Copy only that complete object. If the boundary is unclear, request a new response instead.</td></tr><tr><td>Broken syntax inside the object, such as a trailing comma</td><td><code>invalid_json</code>; no values compared</td><td>Stop and request a fresh response. Do not silently rewrite the object.</td></tr><tr><td>A key repeated within the same object</td><td><code>duplicate_key</code>; no values compared</td><td>Keep both occurrences in the saved original. Request an unambiguous new response; do not choose a winner.</td></tr></tbody></table>
+          <p>Removing an obvious wrapper is a presentation-only step. It does not authorize changing quotes, commas, field names, identifiers or amounts inside the object. Avoid blanket replacements or scripts that guess which braces delimit the response. For a fresh attempt, reuse the same fictional invoice and extraction instruction and ask for one JSON object without surrounding commentary. Keep that new attempt separate from the original.</p>
+          <p>Repeated keys need particular care: some parsers keep only one occurrence. Passing the text through a parse-and-save tool can hide that ambiguity. Checkup rejects it before comparing values, including duplicate names written with JSON escapes. Do not “repair” it by copying the checked answer.</p>
+          <p>Compare the object-only copy or fresh response when it is ready. A successful parse still does not establish a correct extraction: read any value, format, missing-field or row findings against the practice invoice. If recording results, disclose wrapper removal and distinguish a regenerated response from the first attempt.</p>
+        </details>
         <details><summary>Inspect the checked answer</summary><p>Finish your own extraction before opening the answer if you want a blind exercise. AI Toolcast created and checked this synthetic fixture.</p><p><a href="./fixture/answer.json">View checked answer JSON</a> · <a href="./fixture/answer.json" download>Download answer</a></p></details>
       </section>
       <section aria-labelledby="about-title"><h2 id="about-title">A small, open exercise</h2>
         <p>Built by AI Toolcast. For your own datasets or broader evaluation work, explore <a href="https://github.com/datalab-to/omni_extract_bench">Omni Extract Bench</a> or <a href="https://www.rendonarango.com/eval-lens">EvalLens</a>. Their comparison policies and scope differ.</p>
         <details><summary>Privacy and usage measurement</summary><p>Pasted JSON is compared in this browser. This page does not send it to AI Toolcast or an AI provider, and does not save a response history. Copying a report puts its contents on your device’s clipboard; downloading creates a text file.</p><p>The hosted tool may send limited usage events such as a comparison being completed or a report download being started. These events never include pasted JSON, report text or field values. Built-in examples and <code>?qa=1</code> checks are excluded from reader-use counts. See <a href="https://aitoolcast.com/privacy/">AI Toolcast’s privacy notice</a> for hosting and site analytics.</p></details>
-        <details><summary>Source, support and changelog</summary><p>The original source and synthetic fixture are available under the <a href="./LICENSE">MIT license</a> on <a href="https://github.com/AIToolcast/extraction-checkup">GitHub</a>. See <a href="./README.md">source notes and local run instructions</a>. Support is limited to reproducible issues with this fixed exercise; there is no promise of general invoice support or ongoing feature development.</p><p>Release 0.1.0, comparison rules 1.0.0: one synthetic invoice, explicit comparison rules, pasted JSON and a plain-text report.</p></details>
+        <details><summary>Source, support and changelog</summary><p>AI Toolcast owns this tool and used AI assistance in its development and review; the checker makes no model calls, and you choose a separate AI service for extraction.</p><p>The original source and synthetic fixture are available under the <a href="./LICENSE">MIT license</a> on <a href="https://github.com/AIToolcast/extraction-checkup">GitHub</a>. See <a href="./README.md">source notes and local run instructions</a>. Support is limited to reproducible issues with this fixed exercise; there is no promise of general invoice support or ongoing feature development.</p><p>Release 0.1.0, comparison rules 1.0.0: one synthetic invoice, explicit comparison rules, pasted JSON and a plain-text report.</p></details>
       </section>
     </div>
   </main>
