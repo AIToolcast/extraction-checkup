@@ -1,0 +1,421 @@
+{
+  "executed_at": "2026-11-04T15:04:27.276551+00:00",
+  "python_version": "3.11.8",
+  "pandas_version": "2.2.3",
+  "fixture_sha256": "64b2e86135b40018acd2282cadc5786c85c03eaf6da953a9586623a4294cb2a4",
+  "source_records": [
+    {
+      "invoice_id": "000147",
+      "line_id": "01",
+      "item_id": "0008"
+    },
+    {
+      "invoice_id": "000147",
+      "line_id": "02",
+      "item_id": "0012"
+    },
+    {
+      "invoice_id": "000147",
+      "line_id": "03",
+      "item_id": "0031"
+    },
+    {
+      "invoice_id": "000147",
+      "line_id": "04",
+      "item_id": "0104"
+    }
+  ],
+  "cases": [
+    {
+      "quoting": "minimal",
+      "csv_text": "invoice_id,line_id,item_id\n000147,01,0008\n000147,02,0012\n000147,03,0031\n000147,04,0104\n",
+      "csv_sha256": "f25abd6064f2792425c2d1090e89eaf1ce0808097a54ebea529ad1d142f4556c",
+      "stdlib_reader_records": [
+        {
+          "invoice_id": "000147",
+          "line_id": "01",
+          "item_id": "0008"
+        },
+        {
+          "invoice_id": "000147",
+          "line_id": "02",
+          "item_id": "0012"
+        },
+        {
+          "invoice_id": "000147",
+          "line_id": "03",
+          "item_id": "0031"
+        },
+        {
+          "invoice_id": "000147",
+          "line_id": "04",
+          "item_id": "0104"
+        }
+      ],
+      "pandas_default_engine": "c",
+      "pandas_default_dtypes": {
+        "invoice_id": "int64",
+        "line_id": "int64",
+        "item_id": "int64"
+      },
+      "pandas_default_records": [
+        {
+          "invoice_id": 147,
+          "line_id": 1,
+          "item_id": 8
+        },
+        {
+          "invoice_id": 147,
+          "line_id": 2,
+          "item_id": 12
+        },
+        {
+          "invoice_id": 147,
+          "line_id": 3,
+          "item_id": 31
+        },
+        {
+          "invoice_id": 147,
+          "line_id": 4,
+          "item_id": 104
+        }
+      ],
+      "pandas_explicit_dtypes": {
+        "invoice_id": "string",
+        "line_id": "string",
+        "item_id": "string"
+      },
+      "pandas_explicit_records": [
+        {
+          "invoice_id": "000147",
+          "line_id": "01",
+          "item_id": "0008"
+        },
+        {
+          "invoice_id": "000147",
+          "line_id": "02",
+          "item_id": "0012"
+        },
+        {
+          "invoice_id": "000147",
+          "line_id": "03",
+          "item_id": "0031"
+        },
+        {
+          "invoice_id": "000147",
+          "line_id": "04",
+          "item_id": "0104"
+        }
+      ],
+      "post_import_astype_str_records": [
+        {
+          "invoice_id": "147",
+          "line_id": "1",
+          "item_id": "8"
+        },
+        {
+          "invoice_id": "147",
+          "line_id": "2",
+          "item_id": "12"
+        },
+        {
+          "invoice_id": "147",
+          "line_id": "3",
+          "item_id": "31"
+        },
+        {
+          "invoice_id": "147",
+          "line_id": "4",
+          "item_id": "104"
+        }
+      ],
+      "identifier_differences": [
+        {
+          "row": 1,
+          "column": "invoice_id",
+          "source": "000147",
+          "imported": 147,
+          "after_astype_str": "147"
+        },
+        {
+          "row": 1,
+          "column": "line_id",
+          "source": "01",
+          "imported": 1,
+          "after_astype_str": "1"
+        },
+        {
+          "row": 1,
+          "column": "item_id",
+          "source": "0008",
+          "imported": 8,
+          "after_astype_str": "8"
+        },
+        {
+          "row": 2,
+          "column": "invoice_id",
+          "source": "000147",
+          "imported": 147,
+          "after_astype_str": "147"
+        },
+        {
+          "row": 2,
+          "column": "line_id",
+          "source": "02",
+          "imported": 2,
+          "after_astype_str": "2"
+        },
+        {
+          "row": 2,
+          "column": "item_id",
+          "source": "0012",
+          "imported": 12,
+          "after_astype_str": "12"
+        },
+        {
+          "row": 3,
+          "column": "invoice_id",
+          "source": "000147",
+          "imported": 147,
+          "after_astype_str": "147"
+        },
+        {
+          "row": 3,
+          "column": "line_id",
+          "source": "03",
+          "imported": 3,
+          "after_astype_str": "3"
+        },
+        {
+          "row": 3,
+          "column": "item_id",
+          "source": "0031",
+          "imported": 31,
+          "after_astype_str": "31"
+        },
+        {
+          "row": 4,
+          "column": "invoice_id",
+          "source": "000147",
+          "imported": 147,
+          "after_astype_str": "147"
+        },
+        {
+          "row": 4,
+          "column": "line_id",
+          "source": "04",
+          "imported": 4,
+          "after_astype_str": "4"
+        },
+        {
+          "row": 4,
+          "column": "item_id",
+          "source": "0104",
+          "imported": 104,
+          "after_astype_str": "104"
+        }
+      ]
+    },
+    {
+      "quoting": "all_fields",
+      "csv_text": "\"invoice_id\",\"line_id\",\"item_id\"\n\"000147\",\"01\",\"0008\"\n\"000147\",\"02\",\"0012\"\n\"000147\",\"03\",\"0031\"\n\"000147\",\"04\",\"0104\"\n",
+      "csv_sha256": "9681637310e545ef2f68d343b07cbb234b60fa30ab2f32100e34efcb8e9ecce8",
+      "stdlib_reader_records": [
+        {
+          "invoice_id": "000147",
+          "line_id": "01",
+          "item_id": "0008"
+        },
+        {
+          "invoice_id": "000147",
+          "line_id": "02",
+          "item_id": "0012"
+        },
+        {
+          "invoice_id": "000147",
+          "line_id": "03",
+          "item_id": "0031"
+        },
+        {
+          "invoice_id": "000147",
+          "line_id": "04",
+          "item_id": "0104"
+        }
+      ],
+      "pandas_default_engine": "c",
+      "pandas_default_dtypes": {
+        "invoice_id": "int64",
+        "line_id": "int64",
+        "item_id": "int64"
+      },
+      "pandas_default_records": [
+        {
+          "invoice_id": 147,
+          "line_id": 1,
+          "item_id": 8
+        },
+        {
+          "invoice_id": 147,
+          "line_id": 2,
+          "item_id": 12
+        },
+        {
+          "invoice_id": 147,
+          "line_id": 3,
+          "item_id": 31
+        },
+        {
+          "invoice_id": 147,
+          "line_id": 4,
+          "item_id": 104
+        }
+      ],
+      "pandas_explicit_dtypes": {
+        "invoice_id": "string",
+        "line_id": "string",
+        "item_id": "string"
+      },
+      "pandas_explicit_records": [
+        {
+          "invoice_id": "000147",
+          "line_id": "01",
+          "item_id": "0008"
+        },
+        {
+          "invoice_id": "000147",
+          "line_id": "02",
+          "item_id": "0012"
+        },
+        {
+          "invoice_id": "000147",
+          "line_id": "03",
+          "item_id": "0031"
+        },
+        {
+          "invoice_id": "000147",
+          "line_id": "04",
+          "item_id": "0104"
+        }
+      ],
+      "post_import_astype_str_records": [
+        {
+          "invoice_id": "147",
+          "line_id": "1",
+          "item_id": "8"
+        },
+        {
+          "invoice_id": "147",
+          "line_id": "2",
+          "item_id": "12"
+        },
+        {
+          "invoice_id": "147",
+          "line_id": "3",
+          "item_id": "31"
+        },
+        {
+          "invoice_id": "147",
+          "line_id": "4",
+          "item_id": "104"
+        }
+      ],
+      "identifier_differences": [
+        {
+          "row": 1,
+          "column": "invoice_id",
+          "source": "000147",
+          "imported": 147,
+          "after_astype_str": "147"
+        },
+        {
+          "row": 1,
+          "column": "line_id",
+          "source": "01",
+          "imported": 1,
+          "after_astype_str": "1"
+        },
+        {
+          "row": 1,
+          "column": "item_id",
+          "source": "0008",
+          "imported": 8,
+          "after_astype_str": "8"
+        },
+        {
+          "row": 2,
+          "column": "invoice_id",
+          "source": "000147",
+          "imported": 147,
+          "after_astype_str": "147"
+        },
+        {
+          "row": 2,
+          "column": "line_id",
+          "source": "02",
+          "imported": 2,
+          "after_astype_str": "2"
+        },
+        {
+          "row": 2,
+          "column": "item_id",
+          "source": "0012",
+          "imported": 12,
+          "after_astype_str": "12"
+        },
+        {
+          "row": 3,
+          "column": "invoice_id",
+          "source": "000147",
+          "imported": 147,
+          "after_astype_str": "147"
+        },
+        {
+          "row": 3,
+          "column": "line_id",
+          "source": "03",
+          "imported": 3,
+          "after_astype_str": "3"
+        },
+        {
+          "row": 3,
+          "column": "item_id",
+          "source": "0031",
+          "imported": 31,
+          "after_astype_str": "31"
+        },
+        {
+          "row": 4,
+          "column": "invoice_id",
+          "source": "000147",
+          "imported": 147,
+          "after_astype_str": "147"
+        },
+        {
+          "row": 4,
+          "column": "line_id",
+          "source": "04",
+          "imported": 4,
+          "after_astype_str": "4"
+        },
+        {
+          "row": 4,
+          "column": "item_id",
+          "source": "0104",
+          "imported": 104,
+          "after_astype_str": "104"
+        }
+      ]
+    }
+  ],
+  "scope": "One unchanged synthetic invoice; three identifier columns, four rows. All activity is QA.",
+  "not_tested": [
+    "AI extraction",
+    "Excel",
+    "SAP",
+    "other pandas versions or engines",
+    "missing values",
+    "general invoices",
+    "performance",
+    "external use"
+  ]
+}

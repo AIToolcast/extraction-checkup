@@ -184,6 +184,12 @@ Run the client/API/fresh-schema checks with:
 node --test scripts/check_usage.mjs
 ```
 
+## Worked examples
+
+[Trace identifiers through CSV import](examples/csv-identifier-boundary/README.md)
+reuses the original synthetic invoice to locate a downstream type conversion.
+Recorded Python/pandas execution is separate from AI extraction and Excel testing.
+
 ## Provenance, license and support
 
 AI Toolcast created the original invoice, checked its arithmetic and layout,
