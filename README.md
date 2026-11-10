@@ -190,6 +190,16 @@ node --test scripts/check_usage.mjs
 reuses the original synthetic invoice to locate a downstream type conversion.
 Recorded Python/pandas execution is separate from AI extraction and Excel testing.
 
+## Related n8n handover kit preview
+
+For freelance n8n builders preparing invoice workflows for client handover,
+AI Toolcast's [Invoice Handoff Acceptance Kit for n8n](https://aitoolcast.com/products/n8n-invoice-handoff-kit/)
+is a separate proposed download at **USD 49 once**. **Purchases are not open.**
+It compares supplied invoice data with reference answers under defined field
+and row-mapping rules and produces inspectable reports; it does not extract
+invoices or certify accounting correctness. This Checkup stays free and
+MIT-licensed, with no paid features added.
+
 ## Provenance, license and support
 
 AI Toolcast created the original invoice, checked its arithmetic and layout,
