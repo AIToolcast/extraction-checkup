@@ -1,0 +1,89 @@
+{
+  "completed_at": "2026-11-18T15:14:35.585Z",
+  "node_version": "v22.15.0",
+  "fixture": "synthetic-invoice-000147",
+  "rules": "1.0.0",
+  "line_id": "02",
+  "source_sha256": {
+    "compare.mjs": "fa5dd16309aebe9a5f8351663488d84b0b8ab92ec32ad65a1f354a5b5325dad6",
+    "fixture.mjs": "d831fb16cd2c5ff36793d779c97ba4ab270b5ba169360b9f28fa357e2b92f636",
+    "fixture/answer.json": "64b2e86135b40018acd2282cadc5786c85c03eaf6da953a9586623a4294cb2a4",
+    "fixture/samples/changed_id.json": "c6da7234522a887ffd93ce5a4c3d09c2e1154437be23b2b7b2a13de11ca0452a"
+  },
+  "baseline": {
+    "status": "match",
+    "matched_fields": 37,
+    "expected_fields": 37,
+    "findings": []
+  },
+  "cases": [
+    {
+      "first": "012",
+      "last": "0012",
+      "raw_members": "\"item_id\":\"012\",\"item_id\":\"0012\"",
+      "raw_sha256": "504ee393081fe8fc6417d8868bbd8f7a700b3f801603144a06de685c280c830c",
+      "raw": {
+        "status": "invalid",
+        "matched_fields": null,
+        "expected_fields": 37,
+        "findings": [
+          {
+            "kind": "input",
+            "code": "duplicate_key",
+            "path": "$",
+            "expected": "(not provided)",
+            "received": "(not provided)",
+            "message": "Key \"item_id\" occurs twice in one object (character 305). Remove the ambiguity; no values were compared."
+          }
+        ]
+      },
+      "parsed_item_id": "0012",
+      "serialized_sha256": "81e639dbae18b464227c8331158c2a4b8bf0d6abebcf6a99fc21922e705c5b3f",
+      "normalized": {
+        "status": "match",
+        "matched_fields": 37,
+        "expected_fields": 37,
+        "findings": []
+      }
+    },
+    {
+      "first": "0012",
+      "last": "012",
+      "raw_members": "\"item_id\":\"0012\",\"item_id\":\"012\"",
+      "raw_sha256": "c9890aae7ec68601a05f2bfa2ab0bb271fe90d7c94704d27670d4020fb15c5d3",
+      "raw": {
+        "status": "invalid",
+        "matched_fields": null,
+        "expected_fields": 37,
+        "findings": [
+          {
+            "kind": "input",
+            "code": "duplicate_key",
+            "path": "$",
+            "expected": "(not provided)",
+            "received": "(not provided)",
+            "message": "Key \"item_id\" occurs twice in one object (character 306). Remove the ambiguity; no values were compared."
+          }
+        ]
+      },
+      "parsed_item_id": "012",
+      "serialized_sha256": "cd199f861d0f4c97ecb05c4bf095c4d39a4dcdcad4b6c00287ae828dd491ca1c",
+      "normalized": {
+        "status": "differences",
+        "matched_fields": 36,
+        "expected_fields": 37,
+        "findings": [
+          {
+            "kind": "value",
+            "code": "value_mismatch",
+            "path": "$.line_items[line_id=\"02\"].item_id",
+            "expected": "\"0012\"",
+            "received": "\"012\"",
+            "message": "Row 02: item ID: expected \"0012\"; received \"012\"."
+          }
+        ]
+      }
+    }
+  ],
+  "scope": "Local deterministic QA using only the existing checked synthetic answer and changed-ID sample; no provider or workflow call."
+}
