@@ -190,6 +190,10 @@ node --test scripts/check_usage.mjs
 reuses the original synthetic invoice to locate a downstream type conversion.
 Recorded Python/pandas execution is separate from AI extraction and Excel testing.
 
+[Read how parsing can hide conflicting invoice item IDs](https://aitoolcast.com/articles/invoice-json-duplicate-item-id-before-parse/?utm_source=github&utm_medium=referral&utm_campaign=newsroom&utm_content=invoice-json-duplicate-item-id-before-parse)
+follows a synthetic response through a parse-and-save step. The walkthrough
+links to the runnable example and both recorded outcomes.
+
 ## Related n8n handover kit preview
 
 For freelance n8n builders preparing invoice workflows for client handover,

@@ -31,6 +31,10 @@ The [Checkup comparator](../../compare.mjs) checks the original text for
 duplicates before comparing fields. This example identifies the actual
 boundary in one Node run.
 
+[Read the worked explanation on AI Toolcast](https://aitoolcast.com/articles/invoice-json-duplicate-item-id-before-parse/?utm_source=github&utm_medium=referral&utm_campaign=newsroom&utm_content=invoice-json-duplicate-item-id-before-parse)
+for what a clean comparison can tell you after a workflow parses and saves
+its input.
+
 ## Reproduce
 
 From the Extraction Checkup repository root, with Node.js v22.15.0:
