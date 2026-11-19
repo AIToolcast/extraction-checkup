@@ -194,11 +194,11 @@ Recorded Python/pandas execution is separate from AI extraction and Excel testin
 follows a synthetic response through a parse-and-save step. The walkthrough
 links to the runnable example and both recorded outcomes.
 
-## Related n8n handover kit preview
+## Related n8n handover kit
 
 For freelance n8n builders preparing invoice workflows for client handover,
 AI Toolcast's [Invoice Handoff Acceptance Kit for n8n](https://aitoolcast.com/products/n8n-invoice-handoff-kit/)
-is a separate proposed download at **USD 49 once**. **Purchases are not open.**
+is a separate digital download at **USD 49 once**. Applicable taxes are shown at checkout.
 It compares supplied invoice data with reference answers under defined field
 and row-mapping rules and produces inspectable reports; it does not extract
 invoices or certify accounting correctness. This Checkup stays free and
